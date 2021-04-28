@@ -5,13 +5,16 @@ const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
 
 // Product belongsTo Category
+// might have to use cascade to make sure if category is deleted, associated products are also deleted, leaving it out for now
+
 Product.belongsTo(Category, {
   foreignKey: 'category_id'
 })
+
 // Category have many Product
+// also leaving it out here onDelete: 'cascade'
 Category.hasMany(Product, {
   foreignKey: 'category_id',
-  onDelete: 'CASCADE',
 })
 
 // Product belongToMany Tag (through ProductTag)
