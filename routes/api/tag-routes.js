@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 // find tag by id
 router.get('/:id', async (req, res) => {
   try {
-    const tagData = await Tag.findByPk(req.params.id, {include: Product});
+    const tagData = await Tag.findByPk(req.params.id, {include: Product, ProductTag});
     // send response to user with data
     res.status(200).json(tagData);
   }
