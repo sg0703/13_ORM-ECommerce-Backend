@@ -6,9 +6,7 @@ const { Tag, Product, ProductTag } = require('../../models');
 // return all tags along w/ product info
 router.get('/', async (req, res) => {
   try {
-    const tagData = await Tag.findAll({
-      include: [{ model: Product }, {model: ProductTag}],
-    });
+    const tagData = await Tag.findAll({include: Product, ProductTag});
     // send user data
     res.status(200).json(tagData);
   }
@@ -21,9 +19,7 @@ router.get('/', async (req, res) => {
 // find tag by id
 router.get('/:id', async (req, res) => {
   try {
-    const tagData = await Tag.findByPk(req.params.id, {
-      include: [{ model: Product }, {model: ProductTag}],
-    });
+    const tagData = await Tag.findByPk(req.params.id, {include: Product});
     // send response to user with data
     res.status(200).json(tagData);
   }
@@ -36,9 +32,7 @@ router.get('/:id', async (req, res) => {
 // create new tag
 router.post('/', async (req, res) => {
     try {
-      const newTag = await Tag.create({
-        tag_name: req.params.tag_name,
-      });
+      const newTag = await Tag.create({tag_name: req.params.tag_name});
       res.status(200).json(newTag);
     }
     catch (error) {
@@ -50,11 +44,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     // attempt to update database
-    const updateTag = await Tag.update(req.body, {
-      where: {
-        id: req.params.id,
-      }
-    });
+    const updateTag = await Tag.update(req.body, {where: {id: req.params.id}});
     // if no data returned, it failed, display error message
     if(updateTag.length === 0) {
       res.status(404).json({ error: 'Invalid tag ID! Could not update.' });
@@ -70,11 +60,7 @@ router.put('/:id', async (req, res) => {
 // delete tag by its id
 router.delete('/:id', async (req, res) => {
   try {
-    const tagData = await Tag.destroy({
-      where: {
-        id: req.params.id,
-      }
-    });
+    const tagData = await Tag.destroy({where: {id: req.params.id,}});
     // send response to user with data
     res.status(200).json(tagData);
   }
