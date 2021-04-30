@@ -4,7 +4,7 @@
 
 ## Description
 
-Node.js app that uses Express, Sequelize, and MySQL to create an API for managing a sample e-commerce database. Starter code provided at the beginning the assignment. I created the database, Sequelize routes, Sequelize models. Tested and troubleshooted API functions using Insomnia Core.
+Node.js app that uses Express, Sequelize, and MySQL to create an API for managing a sample e-commerce database. Starter code provided at the beginning the assignment. I created the database, Sequelize routes, Sequelize models. Tested and troubleshooted API functions using Insomnia.
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ Anyone is welcome to contribute and suggest improvements.
 
 ## Test
 
-The best way to test the app is with a program like Insomnia Core. I used Insomnia to test this app and each route functions as intended.
+The best way to test the app is with a program like Insomnia. I used Insomnia to test this app and each route functions as intended.
 
 ## Video
 
