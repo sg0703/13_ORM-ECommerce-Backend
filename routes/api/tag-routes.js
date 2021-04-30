@@ -6,7 +6,17 @@ const { Tag, Product, ProductTag } = require('../../models');
 // return all tags along w/ product info
 router.get('/', async (req, res) => {
   try {
-    const tagData = await Tag.findAll({include: Product, ProductTag});
+    const tagData = await Tag.findAll(
+      {
+        include: [
+          {
+            // include product model and pick out elements of product-tag i want 
+            model: Product,
+            through: {attributes: ['id','product_id','tag_id']}
+          }
+        ]
+      }
+    );
     // send user data
     res.status(200).json(tagData);
   }
@@ -19,7 +29,16 @@ router.get('/', async (req, res) => {
 // find tag by id
 router.get('/:id', async (req, res) => {
   try {
-    const tagData = await Tag.findByPk(req.params.id, {include: Product, ProductTag});
+    const tagData = await Tag.findByPk(req.params.id, {
+      include: [
+        {
+          // include product model and pick out elements of product-tag i want 
+          model: Product,
+          through: {attributes: ['id','product_id','tag_id']}
+        }
+      ]});
+
+
     // send response to user with data
     res.status(200).json(tagData);
   }
@@ -32,7 +51,7 @@ router.get('/:id', async (req, res) => {
 // create new tag
 router.post('/', async (req, res) => {
     try {
-      const newTag = await Tag.create({tag_name: req.params.tag_name});
+      const newTag = await Tag.create({tag_name: req.body.tag_name});
       res.status(200).json(newTag);
     }
     catch (error) {

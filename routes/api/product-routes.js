@@ -5,10 +5,17 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', async (req, res) => {
-  // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findAll({include: [{model: Category},{model: Tag}]});
+    const productData = await Product.findAll({
+      include: [
+        {model: Category},
+        {
+          // include tag model and pick out elements of product-tag i want to display in order to match GIF provided in readme (this took forever to figure out)
+          model: Tag,
+          through: {attributes: ['id','product_id','tag_id']}
+        }
+      ]});
     // send user data
     res.status(200).json(productData);
   }
@@ -25,7 +32,7 @@ router.get('/:id', async (req, res) => {
       include: [
         {model: Category},
         {
-          // include tag model and pick out elements of product-tag i want to display in order to match GIF provided in readme (this took forever to figure out)
+          // include tag model and pick out elements of product-tag i want 
           model: Tag,
           through: {attributes: ['id','product_id','tag_id']}
         }

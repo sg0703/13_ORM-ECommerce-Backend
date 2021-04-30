@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 // find category by id
 router.get('/:id', async (req, res) => {
   try {
-    const catData = await Category.findByPk(req.params.id, {include: Product});
+    const catData = await Category.findByPk(req.params.id, {include: [{model: Product}]});
     // send response to user with data
     res.status(200).json(catData);
   }
@@ -32,7 +32,7 @@ router.get('/:id', async (req, res) => {
 // create new category
 router.post('/', async (req, res) => {
   try {
-    const catData = await Category.create({name: req.body.name});
+    const catData = await Category.create({category_name: req.body.category_name});
     res.status(200).json(catData);
   } catch (err) {
     res.status(400).json(err);
